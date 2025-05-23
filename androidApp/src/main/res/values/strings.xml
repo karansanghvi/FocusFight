@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_to">Welcome To</string>
+    <string name="focusfight">FocusFight</string>
+    <string name="subtitle">Turns Focus Into A Game</string>
+    <string name="continueBtn">Continue</string>
+    <string name="login">Login</string>
+</resources>

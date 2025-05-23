@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.nextgen.focusfight.android"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.nextgen.focusfight.android"
@@ -62,4 +62,12 @@ dependencies {
     // Debug tools
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testManifest)
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+
+    implementation("androidx.compose.material:material-icons-extended")
+
+//    view model
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 }
