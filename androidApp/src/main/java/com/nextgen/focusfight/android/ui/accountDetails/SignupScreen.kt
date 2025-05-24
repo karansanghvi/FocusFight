@@ -12,6 +12,11 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,11 +29,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nextgen.focusfight.android.R
+import com.nextgen.focusfight.android.ui.util.CustomToast
 import com.nextgen.focusfight.android.viewModel.LoginViewModel
 import com.nextgen.focusfight.android.viewModel.SignupViewModel
 
 @Composable
 fun SignupScreen(navController: NavHostController, viewModel: SignupViewModel) {
+
+    var showToast by remember { mutableStateOf(false) }
+    var toastMessage by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -124,7 +134,13 @@ fun SignupScreen(navController: NavHostController, viewModel: SignupViewModel) {
         Button(
             onClick = {
                 if (viewModel.validate()) {
-                    // Handle navigation
+                    viewModel.submitSignup { _, message ->
+                        toastMessage = message
+                        showToast = true
+                    }
+                } else {
+                    toastMessage = "Please fill all fields correctly."
+                    showToast = true
                 }
             },
             modifier = Modifier
@@ -134,7 +150,7 @@ fun SignupScreen(navController: NavHostController, viewModel: SignupViewModel) {
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5A47F2))
         ) {
-            Text(text = "Signup", fontSize = 16.sp, color = Color.White)
+            Text(text = "Create An Account", fontSize = 16.sp, color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -155,5 +171,11 @@ fun SignupScreen(navController: NavHostController, viewModel: SignupViewModel) {
                     }
             )
         }
+
+        CustomToast(
+            message = toastMessage,
+            visible = showToast,
+            onDismiss = { showToast = false }
+        )
     }
 }
